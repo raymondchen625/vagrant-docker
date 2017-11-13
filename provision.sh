@@ -6,6 +6,10 @@ apt-get update
 apt-get install -y docker-ce
 usermod -a -G docker vagrant
 mkdir -p /etc/docker
-echo '{"hosts": ["unix:///var/run/docker.sock", "tcp://0.0.0.0:2376"]}' > /etc/docker/daemon.json
+cat << EOF > /etc/docker/daemon.json
+{
+	"hosts": ["unix:///var/run/docker.sock", "tcp://0.0.0.0:2376"]
+}
+EOF
 service docker restart
 apt-get clean
